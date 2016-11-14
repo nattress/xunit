@@ -68,19 +68,19 @@ namespace Xunit
             }
         }
 
-        public TObject CreateObject<TObject>(AssemblyName assemblyName, string typeName, params object[] args)
+        public object CreateObject(AssemblyName assemblyName, string typeName, params object[] args)
         {
             try
             {
 #pragma warning disable CS0618
                 var unwrappedObject = AppDomain.CreateInstanceAndUnwrap(assemblyName.FullName, typeName, false, 0, null, args, null, null, null);
 #pragma warning restore CS0618
-                return (TObject)unwrappedObject;
+                return unwrappedObject;
             }
             catch (TargetInvocationException ex)
             {
                 ex.InnerException.RethrowWithNoStackTraceLoss();
-                return default(TObject);
+                return null;
             }
         }
 

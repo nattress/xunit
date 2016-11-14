@@ -95,9 +95,9 @@ namespace Xunit
 
             // If we didn't get an assemblyInfo object, we can leverage the reflection-based IAssemblyInfo wrapper
             if (assemblyInfo == null)
-                assemblyInfo = appDomain.CreateObject<IAssemblyInfo>(testFrameworkAssemblyName, "Xunit.Sdk.ReflectionAssemblyInfo", assemblyFileName);
+                assemblyInfo = (IAssemblyInfo)appDomain.CreateObject(testFrameworkAssemblyName, "Xunit.Sdk.ReflectionAssemblyInfo", assemblyFileName);
 
-            framework = appDomain.CreateObject<ITestFramework>(testFrameworkAssemblyName, "Xunit.Sdk.TestFrameworkProxy", assemblyInfo, sourceInformationProvider, DiagnosticMessageSink);
+            framework = (ITestFramework)appDomain.CreateObject(testFrameworkAssemblyName, "Xunit.Sdk.TestFrameworkProxy", assemblyInfo, sourceInformationProvider, DiagnosticMessageSink);
 
             discoverer = Framework.GetDiscoverer(assemblyInfo);
         }
@@ -143,7 +143,7 @@ namespace Xunit
             {
                 var sinkWithTypes = MessageSinkWithTypesAdapter.Wrap(sink);
                 var asssemblyName = typeof(OptimizedRemoteMessageSink).GetAssembly().GetName();
-                return appDomain.CreateObject<IMessageSink>(asssemblyName, typeof(OptimizedRemoteMessageSink).FullName, sinkWithTypes);
+                return (IMessageSink)appDomain.CreateObject(asssemblyName, typeof(OptimizedRemoteMessageSink).FullName, sinkWithTypes);
             }
             catch    // This really shouldn't happen, but falling back makes sense in catastrophic cases
             {

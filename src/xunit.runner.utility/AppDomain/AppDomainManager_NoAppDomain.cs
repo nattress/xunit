@@ -12,7 +12,7 @@ namespace Xunit
             this.assemblyFileName = assemblyFileName;
         }
 
-        public TObject CreateObject<TObject>(AssemblyName assemblyName, string typeName, params object[] args)
+        public object CreateObject(AssemblyName assemblyName, string typeName, params object[] args)
         {
             try
             {
@@ -21,12 +21,12 @@ namespace Xunit
 #else
                 var type = Assembly.Load(assemblyName).GetType(typeName);
 #endif
-                return (TObject)Activator.CreateInstance(type, args);
+                return Activator.CreateInstance(type, args);
             }
             catch (TargetInvocationException ex)
             {
                 ex.InnerException.RethrowWithNoStackTraceLoss();
-                return default(TObject);
+                return null;
             }
         }
 

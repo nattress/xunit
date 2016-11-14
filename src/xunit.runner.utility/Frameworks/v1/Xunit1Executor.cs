@@ -47,7 +47,7 @@ namespace Xunit
 
         object CreateObject(string typeName, params object[] args)
         {
-            return appDomain.CreateObject<object>(xunitAssemblyName, typeName, args);
+            return appDomain.CreateObject(xunitAssemblyName, typeName, args);
         }
 
         /// <inheritdoc/>
