@@ -186,10 +186,10 @@ namespace Xunit.Sdk
         protected virtual async Task<RunSummary> RunTestMethodsAsync()
         {
             var summary = new RunSummary();
-            IEnumerable<TTestCase> orderedTestCases;
+            IEnumerable<TTestCase> orderedTestCases = TestCases.ToList();
             try
             {
-                orderedTestCases = TestCaseOrderer.OrderTestCases(TestCases);
+                //orderedTestCases = TestCaseOrderer.OrderTestCases(TestCases);
             }
             catch (Exception ex)
             {

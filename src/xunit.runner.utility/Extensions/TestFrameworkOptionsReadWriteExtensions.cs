@@ -14,7 +14,7 @@ public static class TestFrameworkOptionsReadWriteExtensions
     /// </summary>
     public static bool? GetDiagnosticMessages(this ITestFrameworkDiscoveryOptions discoveryOptions)
     {
-        return discoveryOptions.GetValue<bool?>(TestOptionsNames.Discovery.DiagnosticMessages);
+        return true;
     }
 
     /// <summary>
@@ -23,7 +23,7 @@ public static class TestFrameworkOptionsReadWriteExtensions
     /// </summary>
     public static bool GetDiagnosticMessagesOrDefault(this ITestFrameworkDiscoveryOptions discoveryOptions)
     {
-        return discoveryOptions.GetDiagnosticMessages() ?? false;
+        return true;
     }
 
     /// <summary>
@@ -31,8 +31,7 @@ public static class TestFrameworkOptionsReadWriteExtensions
     /// </summary>
     public static TestMethodDisplay? GetMethodDisplay(this ITestFrameworkDiscoveryOptions discoveryOptions)
     {
-        var methodDisplayString = discoveryOptions.GetValue<string>(TestOptionsNames.Discovery.MethodDisplay);
-        return methodDisplayString != null ? (TestMethodDisplay?)Enum.Parse(typeof(TestMethodDisplay), methodDisplayString) : null;
+        return TestMethodDisplay.ClassAndMethod;
     }
 
     /// <summary>
@@ -41,7 +40,7 @@ public static class TestFrameworkOptionsReadWriteExtensions
     /// </summary>
     public static TestMethodDisplay GetMethodDisplayOrDefault(this ITestFrameworkDiscoveryOptions discoveryOptions)
     {
-        return discoveryOptions.GetMethodDisplay() ?? TestMethodDisplay.ClassAndMethod;
+        return TestMethodDisplay.ClassAndMethod;
     }
 
     /// <summary>
@@ -51,7 +50,7 @@ public static class TestFrameworkOptionsReadWriteExtensions
     /// </summary>
     public static bool? GetPreEnumerateTheories(this ITestFrameworkDiscoveryOptions discoveryOptions)
     {
-        return discoveryOptions.GetValue<bool?>(TestOptionsNames.Discovery.PreEnumerateTheories);
+        return false;
     }
 
     /// <summary>
@@ -62,7 +61,7 @@ public static class TestFrameworkOptionsReadWriteExtensions
     /// </summary>
     public static bool GetPreEnumerateTheoriesOrDefault(this ITestFrameworkDiscoveryOptions discoveryOptions)
     {
-        return discoveryOptions.GetPreEnumerateTheories() ?? true;
+        return false;
     }
 
     /// <summary>
@@ -70,7 +69,7 @@ public static class TestFrameworkOptionsReadWriteExtensions
     /// </summary>
     public static bool? GetSynchronousMessageReporting(this ITestFrameworkDiscoveryOptions discoveryOptions)
     {
-        return discoveryOptions.GetValue<bool?>(TestOptionsNames.Discovery.SynchronousMessageReporting);
+        return false;
     }
 
     /// <summary>
@@ -79,7 +78,7 @@ public static class TestFrameworkOptionsReadWriteExtensions
     /// </summary>
     public static bool GetSynchronousMessageReportingOrDefault(this ITestFrameworkDiscoveryOptions discoveryOptions)
     {
-        return discoveryOptions.GetSynchronousMessageReporting() ?? false;
+        return false;
     }
 
     /// <summary>
@@ -87,7 +86,7 @@ public static class TestFrameworkOptionsReadWriteExtensions
     /// </summary>
     public static void SetDiagnosticMessages(this ITestFrameworkDiscoveryOptions discoveryOptions, bool? value)
     {
-        discoveryOptions.SetValue(TestOptionsNames.Discovery.DiagnosticMessages, value);
+        
     }
 
     /// <summary>
@@ -95,7 +94,7 @@ public static class TestFrameworkOptionsReadWriteExtensions
     /// </summary>
     public static void SetMethodDisplay(this ITestFrameworkDiscoveryOptions discoveryOptions, TestMethodDisplay? value)
     {
-        discoveryOptions.SetValue(TestOptionsNames.Discovery.MethodDisplay, value.HasValue ? value.GetValueOrDefault().ToString() : null);
+        
     }
 
     /// <summary>
@@ -105,7 +104,7 @@ public static class TestFrameworkOptionsReadWriteExtensions
     /// </summary>
     public static void SetPreEnumerateTheories(this ITestFrameworkDiscoveryOptions discoveryOptions, bool? value)
     {
-        discoveryOptions.SetValue(TestOptionsNames.Discovery.PreEnumerateTheories, value);
+        
     }
 
     /// <summary>
@@ -113,7 +112,7 @@ public static class TestFrameworkOptionsReadWriteExtensions
     /// </summary>
     public static void SetSynchronousMessageReporting(this ITestFrameworkDiscoveryOptions discoveryOptions, bool? value)
     {
-        discoveryOptions.SetValue(TestOptionsNames.Discovery.SynchronousMessageReporting, value);
+        
     }
 
     // Read/write methods for ITestFrameworkExecutionOptions
@@ -123,7 +122,7 @@ public static class TestFrameworkOptionsReadWriteExtensions
     /// </summary>
     public static bool? GetDiagnosticMessages(this ITestFrameworkExecutionOptions executionOptions)
     {
-        return executionOptions.GetValue<bool?>(TestOptionsNames.Execution.DiagnosticMessages);
+        return true;
     }
 
     /// <summary>
@@ -132,7 +131,7 @@ public static class TestFrameworkOptionsReadWriteExtensions
     /// </summary>
     public static bool GetDiagnosticMessagesOrDefault(this ITestFrameworkExecutionOptions executionOptions)
     {
-        return executionOptions.GetDiagnosticMessages() ?? false;
+        return true;
     }
 
     /// <summary>
@@ -140,7 +139,7 @@ public static class TestFrameworkOptionsReadWriteExtensions
     /// </summary>
     public static bool? GetDisableParallelization(this ITestFrameworkExecutionOptions executionOptions)
     {
-        return executionOptions.GetValue<bool?>(TestOptionsNames.Execution.DisableParallelization);
+        return true;
     }
 
     /// <summary>
@@ -149,7 +148,7 @@ public static class TestFrameworkOptionsReadWriteExtensions
     /// </summary>
     public static bool GetDisableParallelizationOrDefault(this ITestFrameworkExecutionOptions executionOptions)
     {
-        return executionOptions.GetDisableParallelization() ?? false;
+        return true;
     }
 
     /// <summary>
@@ -157,7 +156,7 @@ public static class TestFrameworkOptionsReadWriteExtensions
     /// </summary>
     public static int? GetMaxParallelThreads(this ITestFrameworkExecutionOptions executionOptions)
     {
-        return executionOptions.GetValue<int?>(TestOptionsNames.Execution.MaxParallelThreads);
+        return 1;
     }
 
     /// <summary>
@@ -167,11 +166,7 @@ public static class TestFrameworkOptionsReadWriteExtensions
     /// </summary>
     public static int GetMaxParallelThreadsOrDefault(this ITestFrameworkExecutionOptions executionOptions)
     {
-        var result = executionOptions.GetMaxParallelThreads();
-        if (result == null || result == 0)
-            return Environment.ProcessorCount;
-
-        return result.GetValueOrDefault();
+        return 1;
     }
 
     /// <summary>
@@ -179,7 +174,7 @@ public static class TestFrameworkOptionsReadWriteExtensions
     /// </summary>
     public static bool? GetSynchronousMessageReporting(this ITestFrameworkExecutionOptions executionOptions)
     {
-        return executionOptions.GetValue<bool?>(TestOptionsNames.Execution.SynchronousMessageReporting);
+        return false;
     }
 
     /// <summary>
@@ -188,7 +183,7 @@ public static class TestFrameworkOptionsReadWriteExtensions
     /// </summary>
     public static bool GetSynchronousMessageReportingOrDefault(this ITestFrameworkExecutionOptions executionOptions)
     {
-        return executionOptions.GetSynchronousMessageReporting() ?? false;
+        return false;
     }
 
     /// <summary>
@@ -196,7 +191,7 @@ public static class TestFrameworkOptionsReadWriteExtensions
     /// </summary>
     public static void SetDiagnosticMessages(this ITestFrameworkExecutionOptions executionOptions, bool? value)
     {
-        executionOptions.SetValue(TestOptionsNames.Execution.DiagnosticMessages, value);
+        
     }
 
     /// <summary>
@@ -204,7 +199,7 @@ public static class TestFrameworkOptionsReadWriteExtensions
     /// </summary>
     public static void SetDisableParallelization(this ITestFrameworkExecutionOptions executionOptions, bool? value)
     {
-        executionOptions.SetValue(TestOptionsNames.Execution.DisableParallelization, value);
+        
     }
 
     /// <summary>
@@ -213,7 +208,7 @@ public static class TestFrameworkOptionsReadWriteExtensions
     /// </summary>
     public static void SetMaxParallelThreads(this ITestFrameworkExecutionOptions executionOptions, int? value)
     {
-        executionOptions.SetValue(TestOptionsNames.Execution.MaxParallelThreads, value);
+        
     }
 
     /// <summary>
@@ -221,6 +216,6 @@ public static class TestFrameworkOptionsReadWriteExtensions
     /// </summary>
     public static void SetSynchronousMessageReporting(this ITestFrameworkExecutionOptions executionOptions, bool? value)
     {
-        executionOptions.SetValue(TestOptionsNames.Execution.SynchronousMessageReporting, value);
+        
     }
 }

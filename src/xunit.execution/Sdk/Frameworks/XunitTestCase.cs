@@ -70,10 +70,10 @@ namespace Xunit.Sdk
             base.Initialize();
 
             var factAttribute = TestMethod.Method.GetCustomAttributes(typeof(FactAttribute)).First();
-            var baseDisplayName = factAttribute.GetNamedArgument<string>("DisplayName") ?? BaseDisplayName;
+            //var baseDisplayName = factAttribute.GetNamedArgument<string>("DisplayName") ?? BaseDisplayName;
 
-            DisplayName = GetDisplayName(factAttribute, baseDisplayName);
-            SkipReason = GetSkipReason(factAttribute);
+            DisplayName = GetDisplayName(factAttribute, BaseDisplayName);
+            SkipReason = null; //GetSkipReason(factAttribute);
 
             foreach (var traitAttribute in GetTraitAttributesData(TestMethod))
             {
